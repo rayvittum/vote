@@ -6,7 +6,7 @@
 html,body{
   margin: 0;
   padding: 0;
-  background-color: #E8A8BA;
+  background-color: #F7F8F9;
   height: 100vh;
   font-family: 'Open Sans';
 }
@@ -28,7 +28,7 @@ button i{
 }
 
 button.a{
-  background-color: #F0D8D8;
+  background-color: #1AAAF8;
 }
 
 button.b{
