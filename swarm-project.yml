@@ -1,0 +1,63 @@
+version: '3.7'
+
+services:
+
+  redis:
+    image: redis:alpine
+    command: redis-server --appendonly yes
+    volumes:
+      - redis-data:/data
+    networks:
+      - frontend
+    deploy:
+      endpoint_mode: dnsrr
+  
+  db:
+    image: postgres:9.6
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - backend
+    deploy:
+      endpoint_mode: dnsrr
+
+  vote:
+    image: rayvittum/vote
+    networks:
+      - frontend
+      - proxy
+    deploy:
+      replicas: 2
+      labels:
+        - traefik.port=80
+        - traefik.frontend.rule=Host:vote.horsesizedduck.site
+
+  result:
+    image: rayvittum/result
+    networks:
+      - backend
+      - proxy
+    deploy:
+      replicas: 2
+      labels:
+        - traefik.port=80
+        - traefik.frontend.rule=Host:result.horsesizedduck.site
+        - traefik.backend.loadbalancer.stickiness=true
+
+  worker:
+    image: bretfisher/examplevotingapp_worker:java
+    networks:
+      - frontend
+      - backend
+    deploy:
+      replicas: 2
+        
+networks:
+  frontend: {}
+  backend: {}
+  proxy:
+    external: true
+
+volumes:
+  db-data:
+  redis-data:
