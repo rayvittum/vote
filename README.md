@@ -1,2 +1,2 @@
-# vote app
+# vote
 
