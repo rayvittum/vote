@@ -1,11 +1,6 @@
 node {
     def app
 
-     stage('Print user') {
-
-        whoami
-    }
-
     stage('Clone repository') {
 
         checkout scm
