@@ -25,9 +25,8 @@ node {
     }
 
       stage('Update Service') {
-            app.inside {
             sh 'docker service update vote_vote --force'
-        }
+        
     }
 
 
