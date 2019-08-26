@@ -13,7 +13,7 @@ services:
         - traefik.port=8080
         - traefik.frontend.rule=Host:jenkins.horsesizedduck.site   
     volumes:
-      - jenkins_data:/var/jenkins_home
+      - proxy_jenkins_data:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock     
       - /usr/bin/docker:/usr/bin/docker
     networks:
@@ -24,4 +24,4 @@ networks:
     external: true
 
 volumes:
-  jenkins_data:
+  proxy_jenkins_data:
